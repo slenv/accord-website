@@ -11,6 +11,8 @@ const MobileCatalogPage = () => {
   const urlCategory = searchParams.get("category");
   const urlBrand = searchParams.get("brand");
   const urlSearch = searchParams.get("search") || "";
+  const urlMinPrice = searchParams.get("min_price") || "";
+  const urlMaxPrice = searchParams.get("max_price") || "";
 
   const {
     products,
@@ -22,6 +24,8 @@ const MobileCatalogPage = () => {
     searchTerm,
     selectedCategory,
     selectedBrand,
+    minPrice,
+    maxPrice,
     isInitialized,
     setCategories,
     setBrands,
@@ -32,6 +36,8 @@ const MobileCatalogPage = () => {
   const [loading, setLoading] = useState(!isInitialized);
   const [loadingMore, setLoadingMore] = useState(false);
   const [localSearch, setLocalSearch] = useState(urlSearch);
+  const [localMinPrice, setLocalMinPrice] = useState(urlMinPrice);
+  const [localMaxPrice, setLocalMaxPrice] = useState(urlMaxPrice);
   const [isFilterOpen, setIsFilterOpen] = useState(false); // Drawer State
 
   const searchTimeout = useRef(null);
@@ -41,9 +47,11 @@ const MobileCatalogPage = () => {
     import("@/utils/seo").then(({ setSEO }) => {
       setSEO("Catálogo Web", "Compra cámaras y accesorios");
     });
-    setFilters(urlSearch, urlCategory, urlBrand);
+    setFilters(urlSearch, urlCategory, urlBrand, urlMinPrice, urlMaxPrice);
     setLocalSearch(urlSearch);
-  }, [urlSearch, urlCategory, urlBrand, setFilters]);
+    setLocalMinPrice(urlMinPrice);
+    setLocalMaxPrice(urlMaxPrice);
+  }, [urlSearch, urlCategory, urlBrand, urlMinPrice, urlMaxPrice, setFilters]);
 
   useEffect(() => {
     if (categories.length === 0)
@@ -60,7 +68,7 @@ const MobileCatalogPage = () => {
 
   useEffect(() => {
     if (!isInitialized) loadInitialProducts();
-  }, [isInitialized, searchTerm, selectedCategory, selectedBrand]);
+  }, [isInitialized, searchTerm, selectedCategory, selectedBrand, minPrice, maxPrice]);
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
@@ -94,6 +102,20 @@ const MobileCatalogPage = () => {
     window.scrollTo({ top: 0 });
   };
 
+  const handlePriceApply = () => {
+    const params = new URLSearchParams(searchParams);
+    if (localMinPrice) params.set("min_price", localMinPrice);
+    else params.delete("min_price");
+
+    if (localMaxPrice) params.set("max_price", localMaxPrice);
+    else params.delete("max_price");
+
+    params.delete("search");
+    setSearchParams(params);
+    setIsFilterOpen(false);
+    window.scrollTo({ top: 0 });
+  };
+
   const loadInitialProducts = async () => {
     setLoading(true);
     try {
@@ -104,6 +126,8 @@ const MobileCatalogPage = () => {
       if (selectedCategory) url += `&category_id=${selectedCategory}`;
       if (selectedBrand) url += `&brand_id=${selectedBrand}`;
       if (searchTerm) url += `&search=${encodeURIComponent(searchTerm)}`;
+      if (minPrice) url += `&min_price=${minPrice}`;
+      if (maxPrice) url += `&max_price=${maxPrice}`;
 
       const { data } = await api.get(url, {
         signal: abortControllerRef.current.signal,
@@ -129,6 +153,8 @@ const MobileCatalogPage = () => {
       if (selectedCategory) url += `&category_id=${selectedCategory}`;
       if (selectedBrand) url += `&brand_id=${selectedBrand}`;
       if (searchTerm) url += `&search=${encodeURIComponent(searchTerm)}`;
+      if (minPrice) url += `&min_price=${minPrice}`;
+      if (maxPrice) url += `&max_price=${maxPrice}`;
 
       const { data } = await api.get(url);
       setProductsData(
@@ -504,6 +530,105 @@ const MobileCatalogPage = () => {
                 </button>
               ))}
             </div>
+          </div>
+
+          <div style={{ marginBottom: "2rem" }}>
+            <h4
+              style={{
+                color: "var(--text-muted)",
+                fontSize: "0.85rem",
+                textTransform: "uppercase",
+                marginBottom: "1rem",
+                letterSpacing: "1px",
+              }}
+            >
+              Rango de Precio
+            </h4>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.8rem",
+              }}
+            >
+              <div style={{ position: "relative", flex: 1 }}>
+                <span
+                  style={{
+                    position: "absolute",
+                    left: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    color: "var(--text-muted)",
+                    fontSize: "0.9rem",
+                  }}
+                >
+                  $
+                </span>
+                <input
+                  type="number"
+                  placeholder="Min"
+                  value={localMinPrice}
+                  onChange={(e) => setLocalMinPrice(e.target.value)}
+                  style={{
+                    width: "100%",
+                    background: "rgba(255,255,255,0.03)",
+                    border: "1px solid var(--glass-border)",
+                    borderRadius: "8px",
+                    padding: "0.6rem 0.6rem 0.6rem 1.8rem",
+                    color: "white",
+                    fontSize: "0.9rem",
+                    outline: "none",
+                  }}
+                />
+              </div>
+              <span style={{ color: "var(--text-muted)" }}>-</span>
+              <div style={{ position: "relative", flex: 1 }}>
+                <span
+                  style={{
+                    position: "absolute",
+                    left: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    color: "var(--text-muted)",
+                    fontSize: "0.9rem",
+                  }}
+                >
+                  $
+                </span>
+                <input
+                  type="number"
+                  placeholder="Max"
+                  value={localMaxPrice}
+                  onChange={(e) => setLocalMaxPrice(e.target.value)}
+                  style={{
+                    width: "100%",
+                    background: "rgba(255,255,255,0.03)",
+                    border: "1px solid var(--glass-border)",
+                    borderRadius: "8px",
+                    padding: "0.6rem 0.6rem 0.6rem 1.8rem",
+                    color: "white",
+                    fontSize: "0.9rem",
+                    outline: "none",
+                  }}
+                />
+              </div>
+            </div>
+            <button
+              onClick={handlePriceApply}
+              style={{
+                marginTop: "1.2rem",
+                width: "100%",
+                padding: "0.8rem",
+                background: "var(--primary)",
+                border: "none",
+                color: "black",
+                borderRadius: "8px",
+                fontWeight: "bold",
+                fontSize: "0.9rem",
+              }}
+            >
+              Aplicar Precio
+            </button>
           </div>
         </div>
       </div>

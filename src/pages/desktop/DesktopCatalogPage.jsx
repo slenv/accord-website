@@ -11,6 +11,8 @@ const DesktopCatalogPage = () => {
   const urlCategory = searchParams.get("category");
   const urlBrand = searchParams.get("brand");
   const urlSearch = searchParams.get("search") || "";
+  const urlMinPrice = searchParams.get("min_price") || "";
+  const urlMaxPrice = searchParams.get("max_price") || "";
 
   const {
     products,
@@ -22,6 +24,8 @@ const DesktopCatalogPage = () => {
     searchTerm,
     selectedCategory,
     selectedBrand,
+    minPrice,
+    maxPrice,
     isInitialized,
     setCategories,
     setBrands,
@@ -32,6 +36,8 @@ const DesktopCatalogPage = () => {
   const [loading, setLoading] = useState(!isInitialized);
   const [loadingMore, setLoadingMore] = useState(false);
   const [localSearch, setLocalSearch] = useState(urlSearch);
+  const [localMinPrice, setLocalMinPrice] = useState(urlMinPrice);
+  const [localMaxPrice, setLocalMaxPrice] = useState(urlMaxPrice);
 
   const searchTimeout = useRef(null);
   const abortControllerRef = useRef(null);
@@ -50,9 +56,11 @@ const DesktopCatalogPage = () => {
         "Explore nuestro amplio catálogo de cámaras de seguridad, accesorios y equipos tecnológicos de última generación. Envíos a nivel nacional.",
       );
     });
-    setFilters(urlSearch, urlCategory, urlBrand);
+    setFilters(urlSearch, urlCategory, urlBrand, urlMinPrice, urlMaxPrice);
     setLocalSearch(urlSearch);
-  }, [urlSearch, urlCategory, urlBrand, setFilters]);
+    setLocalMinPrice(urlMinPrice);
+    setLocalMaxPrice(urlMaxPrice);
+  }, [urlSearch, urlCategory, urlBrand, urlMinPrice, urlMaxPrice, setFilters]);
 
   // 2. Initial Category & Brand Fetching
   useEffect(() => {
@@ -75,7 +83,7 @@ const DesktopCatalogPage = () => {
     if (!isInitialized) {
       loadInitialProducts();
     }
-  }, [isInitialized, searchTerm, selectedCategory, selectedBrand]);
+  }, [isInitialized, searchTerm, selectedCategory, selectedBrand, minPrice, maxPrice]);
 
   // 4. Scroll Active Brand into view (for persistence on refresh)
   useEffect(() => {
@@ -126,6 +134,19 @@ const DesktopCatalogPage = () => {
     setSearchParams(params);
   };
 
+  const handlePriceApply = () => {
+    const params = new URLSearchParams(searchParams);
+    if (localMinPrice) params.set("min_price", localMinPrice);
+    else params.delete("min_price");
+
+    if (localMaxPrice) params.set("max_price", localMaxPrice);
+    else params.delete("max_price");
+
+    params.delete("search"); // Search usually conflicts with deep filtering intent
+    window.scrollTo({ top: 0, behavior: "instant" });
+    setSearchParams(params);
+  };
+
   // --- Drag Scroll Logic ---
   const handleMouseDown = (e) => {
     setIsDragging(true);
@@ -159,6 +180,8 @@ const DesktopCatalogPage = () => {
       if (selectedCategory) url += `&category_id=${selectedCategory}`;
       if (selectedBrand) url += `&brand_id=${selectedBrand}`;
       if (searchTerm) url += `&search=${encodeURIComponent(searchTerm)}`;
+      if (minPrice) url += `&min_price=${minPrice}`;
+      if (maxPrice) url += `&max_price=${maxPrice}`;
 
       const { data } = await api.get(url, {
         signal: abortControllerRef.current.signal,
@@ -186,6 +209,8 @@ const DesktopCatalogPage = () => {
       if (selectedCategory) url += `&category_id=${selectedCategory}`;
       if (selectedBrand) url += `&brand_id=${selectedBrand}`;
       if (searchTerm) url += `&search=${encodeURIComponent(searchTerm)}`;
+      if (minPrice) url += `&min_price=${minPrice}`;
+      if (maxPrice) url += `&max_price=${maxPrice}`;
 
       const { data } = await api.get(url);
       setProductsData(
@@ -274,6 +299,46 @@ const DesktopCatalogPage = () => {
                 </span>
               </button>
             ))}
+          </div>
+
+          <div className="price-filter-group">
+            <h3
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                fontSize: "1.1rem",
+                marginBottom: "1rem",
+              }}
+            >
+              Rango de Precio
+            </h3>
+            <div className="price-inputs">
+              <div className="price-input-wrapper">
+                <span className="currency-symbol">$</span>
+                <input
+                  type="number"
+                  placeholder="Min"
+                  className="price-field"
+                  value={localMinPrice}
+                  onChange={(e) => setLocalMinPrice(e.target.value)}
+                />
+              </div>
+              <span className="price-separator">-</span>
+              <div className="price-input-wrapper">
+                <span className="currency-symbol">$</span>
+                <input
+                  type="number"
+                  placeholder="Max"
+                  className="price-field"
+                  value={localMaxPrice}
+                  onChange={(e) => setLocalMaxPrice(e.target.value)}
+                />
+              </div>
+            </div>
+            <button className="btn-apply-filters" onClick={handlePriceApply}>
+              Aplicar Filtros
+            </button>
           </div>
         </aside>
 

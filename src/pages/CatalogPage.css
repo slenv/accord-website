@@ -329,3 +329,71 @@
   color: var(--primary);
   box-shadow: 0 0 15px rgba(150, 255, 59, 0.15);
 }
+
+/* --- Price Filter --- */
+.price-filter-group {
+  margin-top: 2rem;
+  padding-right: 1rem;
+}
+
+.price-inputs {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.price-input-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.currency-symbol {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.price-field {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 0.6rem 0.6rem 0.6rem 1.8rem;
+  color: white;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.price-field:focus {
+  border-color: var(--primary);
+}
+
+.price-separator {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.btn-apply-filters {
+  margin-top: 1.2rem;
+  width: 100%;
+  padding: 0.6rem;
+  background: rgba(156, 203, 25, 0.1);
+  border: 1px solid rgba(156, 203, 25, 0.3);
+  color: var(--primary);
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-apply-filters:hover {
+  background: var(--primary);
+  color: black;
+}

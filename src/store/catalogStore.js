@@ -13,6 +13,8 @@ export const useCatalogStore = create((set, get) => ({
   searchTerm: "",
   selectedCategory: null,
   selectedBrand: null,
+  minPrice: "",
+  maxPrice: "",
 
   // Cache Status
   isInitialized: false,
@@ -34,7 +36,7 @@ export const useCatalogStore = create((set, get) => ({
       };
     }),
 
-  setFilters: (searchTerm, selectedCategory, selectedBrand) => {
+  setFilters: (searchTerm, selectedCategory, selectedBrand, minPrice = "", maxPrice = "") => {
     // If filters change, we need to reset pagination and data on the next fetch
     const current = get();
 
@@ -44,12 +46,16 @@ export const useCatalogStore = create((set, get) => ({
     const brandChanged =
       current.selectedBrand !== (selectedBrand ? String(selectedBrand) : null);
     const searchChanged = current.searchTerm !== searchTerm;
+    const minPriceChanged = current.minPrice !== minPrice;
+    const maxPriceChanged = current.maxPrice !== maxPrice;
 
-    if (searchChanged || catChanged || brandChanged) {
+    if (searchChanged || catChanged || brandChanged || minPriceChanged || maxPriceChanged) {
       set({
         searchTerm,
         selectedCategory: selectedCategory ? String(selectedCategory) : null,
         selectedBrand: selectedBrand ? String(selectedBrand) : null,
+        minPrice,
+        maxPrice,
         products: [], // Clear products to force a fresh visual transition
         page: 1,
         isInitialized: false,
@@ -66,6 +72,8 @@ export const useCatalogStore = create((set, get) => ({
       searchTerm: "",
       selectedCategory: null,
       selectedBrand: null,
+      minPrice: "",
+      maxPrice: "",
       isInitialized: false,
     }),
 }));
