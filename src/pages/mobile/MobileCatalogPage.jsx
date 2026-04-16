@@ -148,11 +148,11 @@ const MobileCatalogPage = () => {
   const getActiveFilterNames = () => {
     let names = [];
     if (selectedCategory) {
-      const cat = categories.find((c) => String(c.id) === selectedCategory);
+      const cat = (categories || []).find((c) => String(c.id) === selectedCategory);
       if (cat) names.push(cat.name);
     }
     if (selectedBrand) {
-      const brand = brands.find((b) => String(b.id) === selectedBrand);
+      const brand = (brands || []).find((b) => String(b.id) === selectedBrand);
       if (brand) names.push(brand.name);
     }
     return names.length > 0 ? names.join(" / ") : "Todos los productos";
@@ -267,16 +267,15 @@ const MobileCatalogPage = () => {
               ></div>
             ))}
           </div>
-        ) : products.length > 0 ? (
+        ) : Array.isArray(products) && products.length > 0 ? (
           <div className="product-grid">
-            {products.map((product) => (
+            {Array.isArray(products) && products.map((product) => (
               <ProductCard
                 key={product.id}
                 product={product}
                 onBrandClick={(brandName) => {
-                  handleBrandSelect(
-                    brands.find((b) => b.name === brandName)?.id,
-                  );
+                  const foundBrand = (brands || []).find((b) => b.name === brandName);
+                  handleBrandSelect(foundBrand?.id);
                 }}
               />
             ))}
@@ -426,7 +425,7 @@ const MobileCatalogPage = () => {
               >
                 Todas las categorías
               </button>
-              {categories.map((cat) => (
+              {(categories || []).map((cat) => (
                 <button
                   key={cat.id}
                   onClick={() => handleCategorySelect(cat.id)}
@@ -485,7 +484,7 @@ const MobileCatalogPage = () => {
               >
                 Todas
               </button>
-              {brands.map((brand) => (
+              {(brands || []).map((brand) => (
                 <button
                   key={brand.id}
                   onClick={() => handleBrandSelect(brand.id)}

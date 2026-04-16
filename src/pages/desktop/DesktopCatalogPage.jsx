@@ -257,7 +257,7 @@ const DesktopCatalogPage = () => {
             >
               Todas las categorías
             </button>
-            {categories.map((cat) => (
+            {(categories || []).map((cat) => (
               <button
                 key={cat.id}
                 className={`filter-item ${selectedCategory === String(cat.id) ? "active" : ""}`}
@@ -296,7 +296,7 @@ const DesktopCatalogPage = () => {
               >
                 Todas las marcas
               </button>
-              {brands.map((brand) => (
+              {(brands || []).map((brand) => (
                 <button
                   key={brand.id}
                   className={`brand-chip ${selectedBrand === String(brand.id) ? "active" : ""}`}
@@ -350,15 +350,14 @@ const DesktopCatalogPage = () => {
           ) : (
             <>
               <div className="product-grid">
-                {products.length > 0 ? (
+                {Array.isArray(products) && products.length > 0 ? (
                   products.map((product) => (
                     <ProductCard
                       key={product.id}
                       product={product}
                       onBrandClick={(brandName) => {
-                        handleBrandSelect(
-                          brands.find((b) => b.name === brandName)?.id,
-                        );
+                        const foundBrand = (brands || []).find((b) => b.name === brandName);
+                        handleBrandSelect(foundBrand?.id);
                       }}
                     />
                   ))

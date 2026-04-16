@@ -15,6 +15,7 @@ const MobileNavbar = lazy(() => import("@/components/layout/mobile/MobileNavbar"
 const MobileFooter = lazy(() => import("@/components/layout/mobile/MobileFooter"));
 
 import HomePage from "./pages/HomePage";
+import ErrorPage from "./components/ErrorPage";
 
 // Lazy Loading Pages
 const CatalogPage = lazy(() => import("./pages/CatalogPage"));
@@ -52,6 +53,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <ErrorPage />,
     children: [
       { index: true, element: <HomePage /> },
       {
@@ -63,6 +65,7 @@ const router = createBrowserRouter([
         element: <ProductDetailPage />,
         loader: productLoader,
       },
+      // Note: createBrowserRouter automatically handles 404s via errorElement
     ],
   },
 ]);

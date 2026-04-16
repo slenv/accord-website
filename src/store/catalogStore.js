@@ -18,18 +18,21 @@ export const useCatalogStore = create((set, get) => ({
   isInitialized: false,
 
   // Actions
-  setCategories: (categories) => set({ categories }),
+  setCategories: (categories) => set({ categories: Array.isArray(categories) ? categories : [] }),
 
-  setBrands: (brands) => set({ brands }),
+  setBrands: (brands) => set({ brands: Array.isArray(brands) ? brands : [] }),
 
   setProductsData: (products, totalProducts, hasMore, page, append = false) =>
-    set((state) => ({
-      products: append ? [...state.products, ...products] : products,
-      totalProducts,
-      hasMore,
-      page,
-      isInitialized: true,
-    })),
+    set((state) => {
+      const newProducts = Array.isArray(products) ? products : [];
+      return {
+        products: append ? [...state.products, ...newProducts] : newProducts,
+        totalProducts: totalProducts || 0,
+        hasMore: !!hasMore,
+        page: page || 1,
+        isInitialized: true,
+      };
+    }),
 
   setFilters: (searchTerm, selectedCategory, selectedBrand) => {
     // If filters change, we need to reset pagination and data on the next fetch
