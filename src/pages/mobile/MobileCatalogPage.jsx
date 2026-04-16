@@ -562,7 +562,7 @@ const MobileCatalogPage = () => {
                     fontSize: "0.9rem",
                   }}
                 >
-                  $
+                  S/
                 </span>
                 <input
                   type="number"
@@ -593,7 +593,7 @@ const MobileCatalogPage = () => {
                     fontSize: "0.9rem",
                   }}
                 >
-                  $
+                  S/
                 </span>
                 <input
                   type="number"

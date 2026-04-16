@@ -315,7 +315,7 @@ const DesktopCatalogPage = () => {
             </h3>
             <div className="price-inputs">
               <div className="price-input-wrapper">
-                <span className="currency-symbol">$</span>
+                <span className="currency-symbol">S/</span>
                 <input
                   type="number"
                   placeholder="Min"
@@ -326,7 +326,7 @@ const DesktopCatalogPage = () => {
               </div>
               <span className="price-separator">-</span>
               <div className="price-input-wrapper">
-                <span className="currency-symbol">$</span>
+                <span className="currency-symbol">S/</span>
                 <input
                   type="number"
                   placeholder="Max"
