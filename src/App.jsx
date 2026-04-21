@@ -1,10 +1,11 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useState, useEffect, createContext, useContext } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
   Outlet,
   ScrollRestoration,
 } from "react-router-dom";
+import { Sun, Moon } from "lucide-react";
 import "./App.css";
 
 import useDeviceDetect from "@/hooks/useDeviceDetect";
@@ -23,6 +24,11 @@ const ProductDetailPage = lazy(() => import("./pages/ProductDetailPage"));
 
 // Loader for Product Details
 import { productLoader } from "./pages/ProductDetailPage";
+
+// Theme Context
+export const ThemeContext = createContext();
+
+export const useTheme = () => useContext(ThemeContext);
 
 // Layout component to wrap all pages with Navbar and Footer
 const RootLayout = () => {
@@ -65,13 +71,29 @@ const router = createBrowserRouter([
         element: <ProductDetailPage />,
         loader: productLoader,
       },
-      // Note: createBrowserRouter automatically handles 404s via errorElement
     ],
   },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "light";
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <RouterProvider router={router} />
+    </ThemeContext.Provider>
+  );
 }
 
 export default App;

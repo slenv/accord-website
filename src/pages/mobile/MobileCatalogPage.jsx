@@ -189,7 +189,7 @@ const MobileCatalogPage = () => {
       style={{
         paddingTop: "65px",
         paddingBottom: "90px",
-        background: "var(--bg-dark)",
+        background: "var(--bg-page)",
         minHeight: "100vh",
       }}
     >
@@ -199,10 +199,10 @@ const MobileCatalogPage = () => {
           position: "sticky",
           top: "65px",
           zIndex: 90,
-          background: "rgba(0,8,22,0.95)",
+          background: "var(--bg-navbar)",
           backdropFilter: "blur(10px)",
           padding: "0.8rem 1rem",
-          borderBottom: "1px solid var(--glass-border)",
+          borderBottom: "1px solid var(--border-main)",
         }}
       >
         <div style={{ display: "flex", gap: "0.5rem" }}>
@@ -230,10 +230,10 @@ const MobileCatalogPage = () => {
               style={{
                 width: "100%",
                 padding: "0.8rem 1rem 0.8rem 2.5rem",
-                background: "rgba(255,255,255,0.05)",
-                border: "1px solid var(--glass-border)",
+                background: "var(--bg-card)",
+                border: "1px solid var(--border-main)",
                 borderRadius: "12px",
-                color: "white",
+                color: "var(--text-main)",
                 fontSize: "1rem",
               }}
             />
@@ -243,7 +243,7 @@ const MobileCatalogPage = () => {
             style={{
               background: "var(--primary)",
               border: "none",
-              color: "white",
+              color: "#000",
               padding: "0 1.2rem",
               borderRadius: "12px",
               display: "flex",
@@ -266,15 +266,17 @@ const MobileCatalogPage = () => {
             padding: "0 0.2rem",
           }}
         >
-          <span
+          <h1
             style={{
               color: "var(--primary)",
               fontSize: "0.8rem",
               fontWeight: "bold",
+              margin: 0,
+              display: "inline",
             }}
           >
             {getActiveFilterNames()}
-          </span>
+          </h1>
           <span style={{ color: "var(--text-muted)", fontSize: "0.8rem" }}>
             {totalProducts} result.
           </span>
@@ -320,7 +322,7 @@ const MobileCatalogPage = () => {
                 opacity: 0.2,
                 margin: "0 auto 1rem",
                 display: "block",
-                color: "white",
+                color: "var(--text-main)",
               }}
             />
             <p style={{ color: "var(--text-muted)" }}>
@@ -336,12 +338,13 @@ const MobileCatalogPage = () => {
             onClick={handleLoadMore}
             disabled={loadingMore}
             style={{
-              background: "rgba(255,255,255,0.05)",
-              color: "white",
-              border: "1px solid var(--glass-border)",
+              background: "var(--bg-card)",
+              color: "var(--text-main)",
+              border: "1px solid var(--border-main)",
               padding: "0.8rem 2rem",
               borderRadius: "24px",
               fontSize: "0.9rem",
+              boxShadow: "var(--shadow-sm)",
             }}
           >
             {loadingMore ? "Cargando..." : "Cargar más"}
@@ -368,8 +371,8 @@ const MobileCatalogPage = () => {
           bottom: 0,
           left: 0,
           right: 0,
-          background: "var(--bg-dark)",
-          borderTop: "1px solid var(--glass-border)",
+          background: "var(--bg-page)",
+          borderTop: "1px solid var(--border-main)",
           borderTopLeftRadius: "24px",
           borderTopRightRadius: "24px",
           zIndex: 1000,
@@ -392,7 +395,7 @@ const MobileCatalogPage = () => {
           <h3
             style={{
               margin: 0,
-              color: "white",
+              color: "var(--text-main)",
               display: "flex",
               alignItems: "center",
               gap: "0.5rem",
@@ -405,7 +408,7 @@ const MobileCatalogPage = () => {
             style={{
               background: "none",
               border: "none",
-              color: "white",
+              color: "var(--text-main)",
               padding: "0.5rem",
             }}
           >
@@ -441,12 +444,13 @@ const MobileCatalogPage = () => {
                   borderRadius: "12px",
                   background:
                     selectedCategory === null
-                      ? "rgba(170, 59, 255, 0.1)"
-                      : "rgba(255,255,255,0.02)",
-                  border: `1px solid ${selectedCategory === null ? "var(--primary)" : "rgba(255,255,255,0.05)"}`,
+                      ? "rgba(156, 203, 25, 0.1)"
+                      : "var(--bg-card)",
+                  border: `1px solid ${selectedCategory === null ? "var(--primary)" : "var(--border-main)"}`,
                   color:
-                    selectedCategory === null ? "white" : "var(--text-muted)",
+                    selectedCategory === null ? "var(--text-main)" : "var(--text-muted)",
                   fontWeight: selectedCategory === null ? "bold" : "normal",
+                  boxShadow: "var(--shadow-sm)",
                 }}
               >
                 Todas las categorías
@@ -501,11 +505,12 @@ const MobileCatalogPage = () => {
                   background:
                     selectedBrand === null
                       ? "var(--primary)"
-                      : "rgba(255,255,255,0.05)",
-                  border: "none",
-                  color: "white",
+                      : "var(--bg-card)",
+                  border: `1px solid ${selectedBrand === null ? "var(--primary)" : "var(--border-main)"}`,
+                  color: selectedBrand === null ? "#000" : "var(--text-muted)",
                   fontSize: "0.9rem",
                   fontWeight: selectedBrand === null ? "bold" : "normal",
+                  boxShadow: "var(--shadow-sm)",
                 }}
               >
                 Todas
@@ -571,11 +576,11 @@ const MobileCatalogPage = () => {
                   onChange={(e) => setLocalMinPrice(e.target.value)}
                   style={{
                     width: "100%",
-                    background: "rgba(255,255,255,0.03)",
-                    border: "1px solid var(--glass-border)",
+                    background: "var(--bg-card)",
+                    border: "1px solid var(--border-main)",
                     borderRadius: "8px",
                     padding: "0.6rem 0.6rem 0.6rem 1.8rem",
-                    color: "white",
+                    color: "var(--text-main)",
                     fontSize: "0.9rem",
                     outline: "none",
                   }}
@@ -602,11 +607,11 @@ const MobileCatalogPage = () => {
                   onChange={(e) => setLocalMaxPrice(e.target.value)}
                   style={{
                     width: "100%",
-                    background: "rgba(255,255,255,0.03)",
-                    border: "1px solid var(--glass-border)",
+                    background: "var(--bg-card)",
+                    border: "1px solid var(--border-main)",
                     borderRadius: "8px",
                     padding: "0.6rem 0.6rem 0.6rem 1.8rem",
-                    color: "white",
+                    color: "var(--text-main)",
                     fontSize: "0.9rem",
                     outline: "none",
                   }}

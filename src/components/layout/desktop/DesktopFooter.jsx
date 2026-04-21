@@ -5,8 +5,8 @@ const DesktopFooter = () => {
   return (
     <footer
       style={{
-        background: "#000816",
-        borderTop: "1px solid var(--glass-border)",
+        background: "var(--bg-page)",
+        borderTop: "1px solid var(--border-main)",
         padding: "80px 0 40px",
       }}
     >
@@ -34,7 +34,7 @@ const DesktopFooter = () => {
                 alt="Accord Technology"
                 style={{ width: "40px", height: "auto", marginRight: "0.8rem" }}
               />
-              <div style={{ color: "white", fontWeight: "bold" }}>
+              <div style={{ color: "var(--text-main)", fontWeight: "bold" }}>
                 ACCORD{" "}
                 <span style={{ color: "var(--primary)" }}>Technology</span>
               </div>
@@ -55,7 +55,7 @@ const DesktopFooter = () => {
           <div id="contact">
             <h4
               style={{
-                color: "white",
+                color: "var(--text-main)",
                 marginBottom: "1.5rem",
                 fontSize: "1.1rem",
               }}
@@ -83,7 +83,7 @@ const DesktopFooter = () => {
                   <div key={i}>
                     <p
                       style={{
-                        color: "rgba(255,255,255,0.5)",
+                        color: "var(--text-muted)",
                         fontSize: "0.78rem",
                         textTransform: "uppercase",
                         letterSpacing: "0.5px",
@@ -121,7 +121,7 @@ const DesktopFooter = () => {
           <div>
             <h4
               style={{
-                color: "white",
+                color: "var(--text-main)",
                 marginBottom: "1.5rem",
                 fontSize: "1.1rem",
               }}
@@ -171,7 +171,7 @@ const DesktopFooter = () => {
 
         <div
           style={{
-            borderTop: "1px solid var(--glass-border)",
+            borderTop: "1px solid var(--border-main)",
             paddingTop: "2.5rem",
             display: "flex",
             justifyContent: "space-between",

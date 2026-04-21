@@ -5,9 +5,9 @@ const ServicesSection = () => {
     <section
       className="services-section"
       style={{
-        background: "rgba(255, 255, 255, 0.02)",
+        background: "var(--bg-page)",
         padding: "100px 0",
-        borderTop: "1px solid var(--glass-border)",
+        borderTop: "1px solid var(--border-main)",
       }}
     >
       <div className="container">
@@ -38,9 +38,10 @@ const ServicesSection = () => {
             style={{
               textAlign: "center",
               padding: "3rem 2rem",
-              background: "var(--bg-dark)",
-              border: "1px solid var(--glass-border)",
+              background: "var(--bg-card)",
+              border: "1px solid var(--border-main)",
               borderRadius: "32px",
+              boxShadow: "var(--shadow-sm)",
             }}
           >
             <div
@@ -76,9 +77,10 @@ const ServicesSection = () => {
             style={{
               textAlign: "center",
               padding: "3rem 2rem",
-              background: "var(--bg-dark)",
-              border: "1px solid var(--glass-border)",
+              background: "var(--bg-card)",
+              border: "1px solid var(--border-main)",
               borderRadius: "32px",
+              boxShadow: "var(--shadow-sm)",
             }}
           >
             <div
@@ -114,9 +116,10 @@ const ServicesSection = () => {
             style={{
               textAlign: "center",
               padding: "3rem 2rem",
-              background: "var(--bg-dark)",
-              border: "1px solid var(--glass-border)",
+              background: "var(--bg-card)",
+              border: "1px solid var(--border-main)",
               borderRadius: "32px",
+              boxShadow: "var(--shadow-sm)",
             }}
           >
             <div

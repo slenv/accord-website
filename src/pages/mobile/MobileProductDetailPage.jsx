@@ -27,12 +27,14 @@ const MobileProductDetailPage = () => {
       setProduct(initialProduct);
       setActiveImage(initialProduct.image);
 
-      import("@/utils/seo").then(({ setSEO }) => {
+      import("@/utils/seo").then(({ setSEO, setProductSchema }) => {
         setSEO(
           initialProduct.name,
           initialProduct.description,
           getImageUrl(initialProduct.image),
+          "product"
         );
+        setProductSchema(initialProduct);
       });
     }
   }, [initialProduct]);
@@ -75,9 +77,10 @@ const MobileProductDetailPage = () => {
   return (
     <div
       style={{
-        background: "var(--bg-dark)",
+        background: "var(--bg-page)",
         minHeight: "100vh",
-        paddingBottom: "90px",
+        paddingTop: "65px",
+        paddingBottom: "calc(100px + env(safe-area-inset-bottom))",
       }}
     >
       {/* Top Mobile Header */}
@@ -86,9 +89,9 @@ const MobileProductDetailPage = () => {
           position: "sticky",
           top: "65px",
           zIndex: 90,
-          background: "rgba(0,8,22,0.95)",
+          background: "var(--glass-bg)",
           backdropFilter: "blur(10px)",
-          borderBottom: "1px solid var(--glass-border)",
+          borderBottom: "1px solid var(--border-main)",
           padding: "0.8rem 1rem",
         }}
       >
@@ -101,7 +104,7 @@ const MobileProductDetailPage = () => {
           style={{
             background: "none",
             border: "none",
-            color: "white",
+            color: "var(--text-main)",
             display: "flex",
             alignItems: "center",
             gap: "0.4rem",
@@ -117,9 +120,9 @@ const MobileProductDetailPage = () => {
       <div
         style={{
           width: "100%",
-          background: "white",
+          background: "var(--bg-card)",
           position: "relative",
-          borderBottom: "1px solid var(--glass-border)",
+          borderBottom: "1px solid var(--border-main)",
         }}
       >
         <div
@@ -149,7 +152,7 @@ const MobileProductDetailPage = () => {
               gap: "0.5rem",
               overflowX: "auto",
               padding: "1rem",
-              background: "#f5f5f5",
+              background: "#f8fafc",
             }}
           >
             {product.gallery.map((img, idx) => (
@@ -160,12 +163,12 @@ const MobileProductDetailPage = () => {
                   width: "60px",
                   height: "60px",
                   flexShrink: 0,
-                  background: "white",
+                  background: "var(--bg-card)",
                   borderRadius: "8px",
                   border:
                     activeImage === img
                       ? "2px solid var(--primary)"
-                      : "1px solid #ddd",
+                      : "1px solid var(--border-main)",
                   padding: "4px",
                 }}
               >
@@ -210,8 +213,8 @@ const MobileProductDetailPage = () => {
           {product.brand_name && (
             <span
               style={{
-                background: "rgba(255,255,255,0.1)",
-                color: "white",
+                background: "rgba(0,0,0,0.05)",
+                color: "var(--text-main)",
                 padding: "4px 10px",
                 borderRadius: "12px",
                 fontSize: "0.75rem",
@@ -238,11 +241,12 @@ const MobileProductDetailPage = () => {
         {/* Prices List */}
         <div
           style={{
-            background: "rgba(255,255,255,0.03)",
+            background: "var(--bg-card)",
             borderRadius: "16px",
-            border: "1px solid var(--glass-border)",
+            border: "1px solid var(--border-main)",
             padding: "1rem",
             marginBottom: "2rem",
+            boxShadow: "var(--shadow-sm)",
           }}
         >
           {product.units.map((u, idx) => (
@@ -255,7 +259,7 @@ const MobileProductDetailPage = () => {
                 padding: u.is_main ? "1.2rem 0" : "0.8rem 0",
                 borderBottom:
                   idx < product.units.length - 1
-                    ? "1px solid rgba(255, 255, 255, 0.05)"
+                    ? "1px solid var(--border-main)"
                     : "none",
               }}
             >
@@ -271,7 +275,7 @@ const MobileProductDetailPage = () => {
                     style={{
                       fontSize: u.is_main ? "2rem" : "1.4rem",
                       fontWeight: "bold",
-                      color: u.is_main ? "white" : "var(--text-muted)",
+                      color: u.is_main ? "var(--text-main)" : "var(--text-muted)",
                     }}
                   >
                     S/ {u.price.toLocaleString()}
@@ -323,11 +327,12 @@ const MobileProductDetailPage = () => {
                 background:
                   product.stock <= 0
                     ? "rgba(255, 77, 77, 0.1)"
-                    : "rgba(170, 59, 255, 0.1)",
+                    : "var(--bg-card)",
                 border:
                   product.stock <= 0
                     ? "1px solid rgba(255, 77, 77, 0.3)"
-                    : "1px solid rgba(170, 59, 255, 0.3)",
+                    : "1px solid var(--border-main)",
+                boxShadow: "var(--shadow-sm)",
               }}
             >
               <Package
@@ -337,7 +342,7 @@ const MobileProductDetailPage = () => {
               <span
                 style={{
                   fontSize: "0.95rem",
-                  color: product.stock <= 0 ? "#ff4d4d" : "white",
+                  color: product.stock <= 0 ? "#ff4d4d" : "var(--text-main)",
                   fontWeight: product.stock <= 0 ? "bold" : "normal",
                 }}
               >
@@ -353,9 +358,10 @@ const MobileProductDetailPage = () => {
               alignItems: "center",
               gap: "0.8rem",
               padding: "1rem",
-              background: "rgba(255, 255, 255, 0.02)",
+              background: "var(--bg-card)",
               borderRadius: "12px",
-              border: "1px solid var(--glass-border)",
+              border: "1px solid var(--border-main)",
+              boxShadow: "var(--shadow-sm)",
             }}
           >
             <ShieldCheck size={20} color="var(--primary)" />
@@ -367,9 +373,10 @@ const MobileProductDetailPage = () => {
               alignItems: "center",
               gap: "0.8rem",
               padding: "1rem",
-              background: "rgba(255, 255, 255, 0.02)",
+              background: "var(--bg-card)",
               borderRadius: "12px",
-              border: "1px solid var(--glass-border)",
+              border: "1px solid var(--border-main)",
+              boxShadow: "var(--shadow-sm)",
             }}
           >
             <Truck size={20} color="var(--primary)" />
@@ -394,7 +401,7 @@ const MobileProductDetailPage = () => {
             style={{
               fontSize: "0.95rem",
               lineHeight: "1.7",
-              color: "rgba(255, 255, 255, 0.7)",
+              color: "var(--text-muted)",
             }}
           >
             {product.description}
@@ -413,9 +420,9 @@ const MobileProductDetailPage = () => {
               justifyContent: "center",
               gap: "0.8rem",
               width: "100%",
-              background: "rgba(255,255,255,0.05)",
-              color: "white",
-              border: "1px solid var(--glass-border)",
+              background: "var(--bg-card)",
+              color: "var(--text-main)",
+              border: "1px solid var(--border-main)",
               padding: "1.2rem",
               borderRadius: "16px",
               textDecoration: "none",
@@ -447,14 +454,14 @@ const MobileProductDetailPage = () => {
           bottom: 0,
           left: 0,
           right: 0,
-          background: "var(--bg-dark)",
-          borderTop: "1px solid var(--glass-border)",
-          padding: "1rem",
+          background: "var(--bg-card)",
+          borderTop: "1px solid var(--border-main)",
+          padding: "1rem 1rem calc(1rem + env(safe-area-inset-bottom))",
           zIndex: 100,
           display: "flex",
           gap: "1rem",
           alignItems: "center",
-          boxShadow: "0 -10px 20px rgba(0,0,0,0.5)",
+          boxShadow: "0 -4px 20px rgba(0, 0, 0, 0.05)",
         }}
       >
         <div style={{ flex: 1 }}>
@@ -473,7 +480,7 @@ const MobileProductDetailPage = () => {
               display: "block",
               fontWeight: "bold",
               fontSize: "1.2rem",
-              color: "white",
+              color: "var(--text-main)",
             }}
           >
             S/{" "}

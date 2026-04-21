@@ -10,7 +10,7 @@
 
 .product-card {
   background: var(--bg-card);
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--border-main);
   border-radius: 16px;
   /* Slightly tighter border radius */
   padding: 1.2rem;
@@ -61,7 +61,7 @@
   /* Slightly smaller */
   font-weight: 700;
   margin-bottom: 0.8rem;
-  color: white;
+  color: var(--text-main);
   line-height: 1.4;
   height: 2.8rem;
   /* Fixed height for 2 lines */
@@ -82,7 +82,7 @@
   font-size: 1.2rem;
   /* Scaled down proportionally */
   font-weight: 700;
-  color: white;
+  color: var(--text-main);
 }
 
 /* --- Catalog Page Layout --- */
@@ -128,16 +128,17 @@
   position: relative;
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--glass-border);
+  background: var(--bg-card);
+  border: 1px solid var(--border-main);
   border-radius: 50px;
   padding: 0 1.5rem;
+  box-shadow: var(--shadow-sm);
 }
 
 .search-bar input {
   background: transparent;
   border: none;
-  color: white;
+  color: var(--text-main);
   padding: 1rem;
   width: 100%;
   outline: none;
@@ -182,14 +183,23 @@
   padding-right: 0.5rem;
 }
 
-/* Custom scrollbar for inner filter group */
+/* Custom scrollbar for categories sidebar */
 .filter-group::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
+}
+
+.filter-group::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .filter-group::-webkit-scrollbar-thumb {
-  background: rgba(150, 255, 59, 0.15);
+  background: rgba(156, 203, 25, 0.2); /* Slightly more visible by default */
   border-radius: 10px;
+  transition: background 0.3s;
+}
+
+.filter-group::-webkit-scrollbar-thumb:hover {
+  background: var(--primary); /* Vibrant green on hover/focus */
 }
 
 
@@ -204,7 +214,7 @@
   color: var(--text-muted);
   font-size: 0.95rem;
   cursor: pointer;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
   transition: color 0.2s;
 }
 
@@ -253,8 +263,8 @@
   top: 70px;
   /* Sits exactly below the main navbar */
   z-index: 120;
-  background: var(--bg-dark);
-  border-bottom: 1px solid var(--glass-border);
+  background: var(--bg-navbar);
+  border-bottom: 1px solid var(--border-main);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   padding: 30px 0 0.8rem 0;
@@ -305,8 +315,8 @@
 .brand-chip {
   flex: 0 0 auto;
   padding: 0.4rem 1.2rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--glass-border);
+  background: var(--bg-card);
+  border: 1px solid var(--border-main);
   border-radius: 50px;
   color: var(--text-muted);
   font-size: 0.85rem;
@@ -317,9 +327,9 @@
 }
 
 .brand-chip:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
-  color: white;
+  background: var(--bg-page);
+  border-color: var(--border-main);
+  color: var(--text-main);
   transform: translateY(-2px);
 }
 
@@ -360,11 +370,11 @@
 
 .price-field {
   width: 100%;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--glass-border);
+  background: var(--bg-card);
+  border: 1px solid var(--border-main);
   border-radius: 8px;
   padding: 0.6rem 0.6rem 0.6rem 1.8rem;
-  color: white;
+  color: var(--text-main);
   font-size: 0.9rem;
   outline: none;
   transition: border-color 0.2s;

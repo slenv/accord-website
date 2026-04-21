@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Menu, X, Search, ChevronRight } from "lucide-react";
 import { CONTACTS } from "@/config/contacts";
 import { getWhatsappUrl } from "@/config/contacts";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const MobileNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,9 +17,9 @@ const MobileNavbar = () => {
           left: 0,
           right: 0,
           height: "65px",
-          background: "rgba(0, 8, 22, 0.95)",
+          background: "var(--bg-navbar)",
           backdropFilter: "blur(15px)",
-          borderBottom: "1px solid var(--glass-border)",
+          borderBottom: "1px solid var(--border-main)",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -32,7 +33,7 @@ const MobileNavbar = () => {
             style={{
               background: "none",
               border: "none",
-              color: "white",
+              color: "var(--text-main)",
               padding: 0,
             }}
           >
@@ -56,7 +57,7 @@ const MobileNavbar = () => {
             />
             <div
               style={{
-                color: "white",
+                color: "var(--text-main)",
                 fontWeight: "800",
                 fontSize: "1.1rem",
                 letterSpacing: "0.5px",
@@ -67,9 +68,10 @@ const MobileNavbar = () => {
           </Link>
         </div>
 
-        <div>
-          <Link to="/catalog" style={{ color: "white", display: "flex" }}>
-            <Search size={24} />
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          <ThemeToggle />
+          <Link to="/catalog" style={{ color: "var(--text-main)", display: "flex" }}>
+            <Search size={22} />
           </Link>
         </div>
       </nav>
@@ -97,11 +99,11 @@ const MobileNavbar = () => {
           left: 0,
           width: "80%",
           maxWidth: "320px",
-          background: "var(--bg-dark)",
+          background: "var(--bg-page)",
           zIndex: 1100,
           transform: isMenuOpen ? "translateX(0)" : "translateX(-100%)",
           transition: "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-          boxShadow: isMenuOpen ? "10px 0 30px rgba(0,0,0,0.5)" : "none",
+          boxShadow: isMenuOpen ? "10px 0 30px rgba(0,0,0,0.1)" : "none",
           display: "flex",
           flexDirection: "column",
         }}
@@ -109,7 +111,7 @@ const MobileNavbar = () => {
         <div
           style={{
             padding: "1.5rem",
-            borderBottom: "1px solid var(--glass-border)",
+            borderBottom: "1px solid var(--border-main)",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
@@ -122,7 +124,7 @@ const MobileNavbar = () => {
               style={{ width: "32px" }}
             />
             <span
-              style={{ fontWeight: "bold", fontSize: "1.2rem", color: "white" }}
+              style={{ fontWeight: "bold", fontSize: "1.2rem", color: "var(--text-main)" }}
             >
               Menú
             </span>
@@ -130,9 +132,9 @@ const MobileNavbar = () => {
           <button
             onClick={() => setIsMenuOpen(false)}
             style={{
-              background: "rgba(255,255,255,0.05)",
+              background: "rgba(0,0,0,0.05)",
               border: "none",
-              color: "white",
+              color: "var(--text-main)",
               width: "36px",
               height: "36px",
               borderRadius: "50%",
@@ -153,10 +155,10 @@ const MobileNavbar = () => {
               display: "flex",
               justifyContent: "space-between",
               padding: "1rem 1.5rem",
-              color: "white",
+              color: "var(--text-main)",
               textDecoration: "none",
               fontSize: "1.1rem",
-              borderBottom: "1px solid rgba(255,255,255,0.03)",
+              borderBottom: "1px solid rgba(0,0,0,0.03)",
             }}
           >
             Inicio <ChevronRight size={20} style={{ opacity: 0.3 }} />
@@ -172,7 +174,7 @@ const MobileNavbar = () => {
               fontWeight: "bold",
               textDecoration: "none",
               fontSize: "1.1rem",
-              borderBottom: "1px solid rgba(255,255,255,0.03)",
+              borderBottom: "1px solid rgba(0,0,0,0.03)",
             }}
           >
             Catálogo Web <ChevronRight size={20} />
@@ -196,18 +198,19 @@ const MobileNavbar = () => {
                 href={getWhatsappUrl(1)}
                 style={{
                   display: "block",
-                  background: "rgba(255,255,255,0.03)",
+                  background: "var(--bg-card)",
                   padding: "1rem",
                   borderRadius: "12px",
                   marginBottom: "0.8rem",
                   textDecoration: "none",
-                  border: "1px solid var(--glass-border)",
+                  border: "1px solid var(--border-main)",
+                  boxShadow: "var(--shadow-sm)",
                 }}
               >
                 <strong
                   style={{
                     display: "block",
-                    color: "white",
+                    color: "var(--text-main)",
                     marginBottom: "0.2rem",
                   }}
                 >

@@ -2,8 +2,8 @@
 
 .partners-section {
   padding: 40px 0 60px;
-  background: var(--bg-dark);
-  border-bottom: 1px solid var(--glass-border);
+  background: var(--bg-page);
+  border-bottom: 1px solid var(--border-main);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -51,13 +51,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.25);
-  transition: color 0.4s ease, transform 0.4s ease;
+  color: var(--text-muted);
+  opacity: 0.5;
+  transition: all 0.4s ease;
   cursor: default;
 }
 
 .brand-item:hover {
-  color: white;
+  color: var(--text-main);
+  opacity: 1;
   transform: scale(1.05);
 }
 

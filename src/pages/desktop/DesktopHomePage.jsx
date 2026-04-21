@@ -48,7 +48,7 @@ const DesktopHomePage = () => {
           padding: "120px 0 80px",
           textAlign: "center",
           background:
-            "radial-gradient(circle at center, rgba(170, 59, 255, 0.08) 0%, transparent 70%)",
+            "radial-gradient(circle at center, rgba(156, 203, 25, 0.08) 0%, transparent 70%)",
         }}
       >
         <div className="container">
@@ -75,7 +75,7 @@ const DesktopHomePage = () => {
             }}
           >
             Especialistas en Cámaras de <br /> Seguridad
-            <span style={{ color: "white", opacity: 0.9 }}>
+            <span style={{ color: "var(--text-main)", opacity: 0.7 }}>
               {" "}
               e Instalaciones
             </span>

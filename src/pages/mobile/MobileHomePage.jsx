@@ -40,7 +40,7 @@ const MobileHomePage = () => {
         style={{
           padding: "3rem 1rem",
           textAlign: "center",
-          background: "var(--bg-dark)",
+          background: "var(--bg-page)",
         }}
       >
         <span
@@ -160,8 +160,8 @@ const MobileHomePage = () => {
       <section
         style={{
           padding: "2rem 1.5rem",
-          background: "rgba(255,255,255,0.02)",
-          borderTop: "1px solid var(--glass-border)",
+          background: "var(--bg-page)",
+          borderTop: "1px solid var(--border-main)",
         }}
       >
         <h2
@@ -178,13 +178,14 @@ const MobileHomePage = () => {
         >
           <div
             style={{
-              background: "var(--bg-dark)",
+              background: "var(--bg-card)",
               padding: "1.5rem",
               borderRadius: "20px",
-              border: "1px solid var(--glass-border)",
+              border: "1px solid var(--border-main)",
               display: "flex",
               gap: "1rem",
               alignItems: "center",
+              boxShadow: "var(--shadow-sm)",
             }}
           >
             <div
@@ -220,13 +221,14 @@ const MobileHomePage = () => {
           </div>
           <div
             style={{
-              background: "var(--bg-dark)",
+              background: "var(--bg-card)",
               padding: "1.5rem",
               borderRadius: "20px",
-              border: "1px solid var(--glass-border)",
+              border: "1px solid var(--border-main)",
               display: "flex",
               gap: "1rem",
               alignItems: "center",
+              boxShadow: "var(--shadow-sm)",
             }}
           >
             <div

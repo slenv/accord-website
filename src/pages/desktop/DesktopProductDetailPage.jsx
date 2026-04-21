@@ -28,13 +28,15 @@ const DesktopProductDetailPage = () => {
       setActiveImage(initialProduct.image);
 
       // Set Dynamic SEO
-      import("@/utils/seo").then(({ setSEO }) => {
+      import("@/utils/seo").then(({ setSEO, setProductSchema }) => {
         setSEO(
           initialProduct.name,
           initialProduct.description ||
-            `Adquiere ${initialProduct.name} en Accord Technology. Soluciones tecnológicas y cobertura a nivel nacional.`,
+          `Adquiere ${initialProduct.name} en Accord Technology. Soluciones tecnológicas y cobertura a nivel nacional.`,
           getImageUrl(initialProduct.image), // Dynamic image for Open Graph
+          "product"
         );
+        setProductSchema(initialProduct);
       });
     }
   }, [initialProduct]);
@@ -51,10 +53,11 @@ const DesktopProductDetailPage = () => {
       >
         <div
           style={{
-            backgroundColor: "rgba(255, 255, 255, 0.03)",
+            backgroundColor: "var(--bg-card)",
             padding: "5rem",
             borderRadius: "30px",
-            border: "1px solid rgba(255, 255, 255, 0.05)",
+            border: "1px solid var(--border-main)",
+            boxShadow: "var(--shadow-md)",
           }}
         >
           <AlertCircle
@@ -127,8 +130,8 @@ const DesktopProductDetailPage = () => {
               justifyContent: "center",
               minHeight: "500px",
               overflow: "hidden",
-              border: "1px solid var(--glass-border)",
-              boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
+              border: "1px solid var(--border-main)",
+              boxShadow: "var(--shadow-md)",
             }}
           >
             <ImageWithLoader
@@ -158,13 +161,12 @@ const DesktopProductDetailPage = () => {
                   key={idx}
                   onClick={() => setActiveImage(img)}
                   style={{
-                    padding: "0.4rem",
                     background: "white",
                     borderRadius: "12px",
                     border:
                       activeImage === img
                         ? "2px solid var(--primary)"
-                        : "2px solid transparent",
+                        : "2px solid var(--border-main)",
                     cursor: "pointer",
                     transition: "all 0.2s",
                     display: "flex",
@@ -195,11 +197,11 @@ const DesktopProductDetailPage = () => {
             <span
               className="sku-tag"
               style={{
-                backgroundColor: "rgba(170, 59, 255, 0.1)",
+                backgroundColor: "rgba(156, 203, 25, 0.15)",
                 color: "var(--primary)",
-                padding: "0.4rem 1rem",
+                padding: "0.45rem 1.2rem",
                 borderRadius: "50px",
-                fontSize: "0.8rem",
+                fontSize: "0.85rem",
                 fontWeight: "bold",
                 display: "inline-block",
                 marginBottom: "1rem",
@@ -244,7 +246,7 @@ const DesktopProductDetailPage = () => {
                     padding: u.is_main ? "1rem 0" : "0.5rem 0",
                     borderBottom:
                       idx < product.units.length - 1
-                        ? "1px solid rgba(255, 255, 255, 0.05)"
+                        ? "1px solid var(--border-main)"
                         : "none",
                   }}
                 >
@@ -252,7 +254,7 @@ const DesktopProductDetailPage = () => {
                     style={{
                       fontSize: u.is_main ? "2.2rem" : "1.4rem",
                       fontWeight: "bold",
-                      color: u.is_main ? "white" : "var(--text-muted)",
+                      color: u.is_main ? "var(--text-main)" : "var(--text-muted)",
                     }}
                   >
                     S/{" "}
@@ -299,7 +301,7 @@ const DesktopProductDetailPage = () => {
               style={{
                 fontSize: "1.05rem",
                 lineHeight: "1.7",
-                color: "rgba(255, 255, 255, 0.7)",
+                color: "var(--text-muted)",
               }}
             >
               {product.description}
@@ -322,9 +324,10 @@ const DesktopProductDetailPage = () => {
                 alignItems: "center",
                 gap: "0.8rem",
                 padding: "1rem",
-                background: "rgba(255, 255, 255, 0.03)",
+                background: "var(--bg-card)",
                 borderRadius: "16px",
-                border: "1px solid rgba(255, 255, 255, 0.05)",
+                border: "1px solid var(--border-main)",
+                boxShadow: "var(--shadow-sm)",
               }}
             >
               <ShieldCheck size={20} color="var(--primary)" />
@@ -339,9 +342,10 @@ const DesktopProductDetailPage = () => {
                 alignItems: "center",
                 gap: "0.8rem",
                 padding: "1rem",
-                background: "rgba(255, 255, 255, 0.03)",
+                background: "var(--bg-card)",
                 borderRadius: "16px",
-                border: "1px solid rgba(255, 255, 255, 0.05)",
+                border: "1px solid var(--border-main)",
+                boxShadow: "var(--shadow-sm)",
               }}
             >
               <Truck size={20} color="var(--primary)" />
@@ -361,13 +365,14 @@ const DesktopProductDetailPage = () => {
                   background:
                     product.stock <= 0
                       ? "rgba(255, 77, 77, 0.08)"
-                      : "rgba(170, 59, 255, 0.05)",
+                      : "var(--bg-card)",
                   borderRadius: "16px",
                   border:
                     product.stock <= 0
                       ? "1px solid rgba(255, 77, 77, 0.2)"
-                      : "1px solid rgba(170, 59, 255, 0.2)",
+                      : "1px solid var(--border-main)",
                   gridColumn: "span 2",
+                  boxShadow: "var(--shadow-sm)",
                 }}
               >
                 <Package
@@ -426,11 +431,11 @@ const DesktopProductDetailPage = () => {
             className="installer-section"
             style={{
               padding: "2rem",
-              background:
-                "linear-gradient(135deg, rgba(170, 59, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)",
+              background: "var(--bg-card)",
               borderRadius: "24px",
-              border: "1px solid rgba(170, 59, 255, 0.1)",
+              border: "1px solid var(--border-main)",
               position: "relative",
+              boxShadow: "var(--shadow-sm)",
             }}
           >
             {product.tech_sheet && (
@@ -438,7 +443,7 @@ const DesktopProductDetailPage = () => {
                 style={{
                   marginBottom: "2rem",
                   paddingBottom: "1.5rem",
-                  borderBottom: "1px solid rgba(255,255,255,0.05)",
+                  borderBottom: "1px solid var(--border-main)",
                 }}
               >
                 <div
